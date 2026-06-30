@@ -177,3 +177,46 @@ foreach (var name in leaderboard)
 {
     Console.WriteLine($"- {name}");
 }
+//Class Average GPA
+decimal averageGpa = students.Average(s => s.GPA);
+
+Console.WriteLine($"\nClass Average GPA: {averageGpa:F2}");
+
+var standingGroups = students.GroupBy(s => s.GPA switch
+{
+    >= 3.5m => "Honors",
+    >= 2.5m => "Good Standing",
+    >= 2.0m => "Probation",
+    _ => "Academic Warning"
+});
+
+Console.WriteLine("\n--- Academic Standing Report ---");
+
+foreach (var group in standingGroups)
+{
+    Console.WriteLine($"\n{group.Key} ({group.Count()}):");
+
+    foreach (var s in group)
+    {
+        Console.WriteLine($" {s.Name} GPA: {s.GPA}");
+    }
+}
+var standingGroups = students.GroupBy(s => s.GPA switch
+{
+    >= 3.5m => "Honors",
+    >= 2.5m => "Good Standing",
+    >= 2.0m => "Probation",
+    _ => "Academic Warning"
+});
+
+Console.WriteLine("\n--- Academic Standing Report ---");
+
+foreach (var group in standingGroups)
+{
+    Console.WriteLine($"\n{group.Key} ({group.Count()}):");
+
+    foreach (var s in group)
+    {
+        Console.WriteLine($" {s.Name} GPA: {s.GPA}");
+    }
+}
