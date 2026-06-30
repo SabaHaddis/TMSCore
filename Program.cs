@@ -84,3 +84,19 @@ IGradable[] cohortAssessments =
 ];
 
 PrintGradeReport(cohortAssessments);
+
+var s = new Student
+{
+    Id = "S1",
+    Name = "Abeba",
+    Age = 20,
+    GPA = 3.8m
+};
+
+Console.WriteLine($"Student: {s.Name}, GPA: {s.GPA}");
+
+// Uncomment one at a time to test validation:
+
+// new Student { Id = "S2", Name = "", Age = 20, GPA = 3.0m };
+// new Student { Id = "S3", Name = "Test", Age = 12, GPA = 3.0m };
+// new Student { Id = "S4", Name = "Test", Age = 20, GPA = 5.0m };
