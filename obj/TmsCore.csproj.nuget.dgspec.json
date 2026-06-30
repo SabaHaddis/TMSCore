@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sclab\\TmsCore\\TmsCore.csproj": {}
+    "C:\\Users\\USER\\TMSCore\\TmsCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sclab\\TmsCore\\TmsCore.csproj": {
+    "C:\\Users\\USER\\TMSCore\\TmsCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sclab\\TmsCore\\TmsCore.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\TMSCore\\TmsCore.csproj",
         "projectName": "TmsCore",
-        "projectPath": "C:\\Users\\sclab\\TmsCore\\TmsCore.csproj",
-        "packagesPath": "C:\\Users\\sclab\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sclab\\TmsCore\\obj\\",
+        "projectPath": "C:\\Users\\USER\\TMSCore\\TmsCore.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USER\\TMSCore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\sclab\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
