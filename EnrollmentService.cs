@@ -2,7 +2,6 @@ public class EnrollmentService
 {
     public EnrollmentRecord ProcessRegistration(Student? student, Course? course)
     {
-        // TODO
         if (student is null)
             throw new ArgumentNullException(nameof(student));
 
@@ -11,7 +10,19 @@ public class EnrollmentService
 
         if (course.EnrolledCount >= course.Capacity)
             throw new InvalidOperationException("Course is already full.");
-        
-        throw new NotImplementedException();
+
+        string standing = student.GPA switch
+        {
+            >= 3.5m => "Honors",
+            >= 2.5m => "Good Standing",
+            _ => "Academic Warning"
+        };
+
+        Console.WriteLine($"{student.Name} is in {standing}.");
+
+        return new EnrollmentRecord(
+            student.Id,
+            course.Code,
+            DateTime.UtcNow);
     }
 }

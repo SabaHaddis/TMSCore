@@ -100,3 +100,56 @@ Console.WriteLine($"Student: {s.Name}, GPA: {s.GPA}");
 // new Student { Id = "S2", Name = "", Age = 20, GPA = 3.0m };
 // new Student { Id = "S3", Name = "Test", Age = 12, GPA = 3.0m };
 // new Student { Id = "S4", Name = "Test", Age = 20, GPA = 5.0m };
+
+Console.WriteLine("\n--- Exercise 4 ---");
+
+var service = new EnrollmentService();
+
+// Test 1
+var validStudent = new Student
+{
+    Id = "S1",
+    Name = "Abeba",
+    Age = 20,
+    GPA = 3.8m
+};
+
+var validCourse = new Course
+{
+    Code = "CS-401",
+    Title = "Advanced C#",
+    Capacity = 30
+};
+
+var result = service.ProcessRegistration(validStudent, validCourse);
+
+Console.WriteLine($"Enrolled: {result.StudentId} in {result.CourseCode}");
+
+// Test 2
+try
+{
+    service.ProcessRegistration(null, validCourse);
+}
+catch (ArgumentNullException ex)
+{
+    Console.WriteLine($"Guard caught: {ex.ParamName}");
+}
+
+// Test 3
+var fullCourse = new Course
+{
+    Code = "CS-402",
+    Title = "Full Course",
+    Capacity = 1
+};
+
+fullCourse.EnrolledCount = 1;
+
+try
+{
+    service.ProcessRegistration(validStudent, fullCourse);
+}
+catch (InvalidOperationException ex)
+{
+    Console.WriteLine($"Business rule: {ex.Message}");
+}
