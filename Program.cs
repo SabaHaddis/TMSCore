@@ -85,7 +85,7 @@ IGradable[] cohortAssessments =
 
 PrintGradeReport(cohortAssessments);
 
-var s = new Student
+var sampleStudent = new Student
 {
     Id = "S1",
     Name = "Abeba",
@@ -93,14 +93,13 @@ var s = new Student
     GPA = 3.8m
 };
 
-Console.WriteLine($"Student: {s.Name}, GPA: {s.GPA}");
+Console.WriteLine($"Student: {sampleStudent.Name}, GPA: {sampleStudent.GPA}");
 
 // Uncomment one at a time to test validation:
 
 // new Student { Id = "S2", Name = "", Age = 20, GPA = 3.0m };
 // new Student { Id = "S3", Name = "Test", Age = 12, GPA = 3.0m };
 // new Student { Id = "S4", Name = "Test", Age = 20, GPA = 5.0m };
-Console.WriteLine("\n--- Exercise 4 ---");
 
 var service = new EnrollmentService();
 
@@ -152,6 +151,7 @@ catch (InvalidOperationException ex)
 {
     Console.WriteLine($"Business rule: {ex.Message}");
 }
+
 // C# 12+ Collection Expressions
 List<Student> students =
 [
@@ -177,11 +177,11 @@ foreach (var name in leaderboard)
 {
     Console.WriteLine($"- {name}");
 }
-//Class Average GPA
+// Average GPA
 decimal averageGpa = students.Average(s => s.GPA);
 
 Console.WriteLine($"\nClass Average GPA: {averageGpa:F2}");
-
+// Group by academic standing
 var standingGroups = students.GroupBy(s => s.GPA switch
 {
     >= 3.5m => "Honors",
@@ -196,27 +196,20 @@ foreach (var group in standingGroups)
 {
     Console.WriteLine($"\n{group.Key} ({group.Count()}):");
 
-    foreach (var s in group)
+    foreach (var student in group)
     {
-        Console.WriteLine($" {s.Name} GPA: {s.GPA}");
+        Console.WriteLine($" {student.Name} GPA: {student.GPA}");
     }
 }
-var standingGroups = students.GroupBy(s => s.GPA switch
-{
-    >= 3.5m => "Honors",
-    >= 2.5m => "Good Standing",
-    >= 2.0m => "Probation",
-    _ => "Academic Warning"
-});
+// Collection Expressions with Spread
+string[] backendCourses = ["C#", "ASP.NET Core"];
+string[] frontendCourses = ["TypeScript", "Angular"];
 
-Console.WriteLine("\n--- Academic Standing Report ---");
+string[] allCourses =
+[
+    ..backendCourses,
+    ..frontendCourses,
+    "Capstone"
+];
 
-foreach (var group in standingGroups)
-{
-    Console.WriteLine($"\n{group.Key} ({group.Count()}):");
-
-    foreach (var s in group)
-    {
-        Console.WriteLine($" {s.Name} GPA: {s.GPA}");
-    }
-}
+Console.WriteLine($"\nFull curriculum: {string.Join(", ", allCourses)}");
