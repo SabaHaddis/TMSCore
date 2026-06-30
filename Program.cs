@@ -1,4 +1,6 @@
-﻿string studentName = "Abeba";
+﻿using System.Diagnostics;
+
+string studentName = "Abeba";
 string studentId = "STU-001";
 int enrollmentCount = 3;
 decimal grantAmount = 1999.99m; // 'm' suffix marks a decimal literal
@@ -213,3 +215,33 @@ string[] allCourses =
 ];
 
 Console.WriteLine($"\nFull curriculum: {string.Join(", ", allCourses)}");
+
+var sw = Stopwatch.StartNew();
+
+// Blocking
+for (int i = 0; i < 5; i++)
+{
+    Thread.Sleep(300);
+}
+
+Console.WriteLine($"Blocking sequential: {sw.ElapsedMilliseconds}ms");
+
+// Async sequential
+sw.Restart();
+
+for (int i = 0; i < 5; i++)
+{
+    await Task.Delay(300);
+}
+
+Console.WriteLine($"Async sequential: {sw.ElapsedMilliseconds}ms");
+
+// Async parallel
+sw.Restart();
+
+var tasks = Enumerable.Range(0, 5)
+    .Select(_ => Task.Delay(300));
+
+await Task.WhenAll(tasks);
+
+Console.WriteLine($"Async parallel: {sw.ElapsedMilliseconds}ms");
