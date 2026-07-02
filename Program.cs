@@ -202,6 +202,22 @@ string[] allCourses =
 
 Console.WriteLine($"\nFull curriculum: {string.Join(", ", allCourses)}");
 
+//
+async Task SendConfirmationAsync(Student student)
+{
+try
+    {
+        await Task.Delay(100); // Simulate sending email
+        Console.WriteLine($" Email sent to {student.Name}");
+
+    }
+catch (Exception ex)
+{
+// Log the failure do NOT re-throw.
+// This is intentional fire-and-forget.
+Console.WriteLine($" Email failed for {student.Name}: {ex.Message}");
+}
+}
 // THE WRONGWAY:Blocking with Thread.Sleep
 var sw = Stopwatch.StartNew();
 
@@ -316,6 +332,9 @@ foreach (var student in loadedStudents)
 
         enrollments.Add(record);
 
+        // Fire-and-forget confirmation
+        _ = SendConfirmationAsync(student);
+
         Console.WriteLine($"Enrolled: {student.Name}");
     }
     catch (InvalidOperationException ex)
@@ -325,6 +344,7 @@ foreach (var student in loadedStudents)
         Console.WriteLine(
             $"Rejected: {student.Name} - {ex.Message}");
     }
+    await Task.Delay(300);
 }
 try
 {
@@ -378,4 +398,3 @@ if (failures.Count > 0)
 
 Console.WriteLine(
     "========================================");
-
