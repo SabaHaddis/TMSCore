@@ -9,8 +9,8 @@ public class EnrollmentService
             throw new ArgumentNullException(nameof(course));
 
         if (course.EnrolledCount >= course.Capacity)
-            throw new InvalidOperationException("Course is already full.");
-
+            throw new CapacityReachedException(course.Code);
+        
         string standing = student.GPA switch
         {
             >= 3.5m => "Honors",
