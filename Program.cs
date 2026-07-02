@@ -230,3 +230,63 @@ var tasks = Enumerable.Range(0, 5)
 await Task.WhenAll(tasks);
 
 Console.WriteLine($"Async parallel: {sw.ElapsedMilliseconds}ms");
+
+async Task<Student> FetchStudentAsync(string id)
+{
+    Console.WriteLine($"Fetching {id}...");
+
+    await Task.Delay(300); // Simulate database latency
+
+    return new Student
+    {
+        Id = id,
+        Name = $"Student-{id}",
+        Age = 20,
+        GPA = id switch
+        {
+            "S1" => 3.8m,
+            "S2" => 2.4m,
+            "S3" => 3.5m,
+            "S4" => 1.9m,
+            "S5" => 3.2m,
+            _ => 2.5m
+        }
+    };
+}
+async Task<Course> FetchCourseAsync(string code)
+{
+    Console.WriteLine($"Fetching course {code}...");
+
+    await Task.Delay(200); // Simulate database latency
+
+    return new Course
+    {
+        Code = code,
+        Title = $"Course-{code}",
+        Capacity = code switch
+        {
+            "CRS-101" => 2,
+            "CRS-201" => 30,
+            "CRS-301" => 15,
+            _ => 25
+        }
+    };
+}
+sw.Restart();
+
+string[] studentIds = ["S1", "S2", "S3", "S4", "S5"];
+string[] courseCodes = ["CRS-101", "CRS-201", "CRS-301"];
+
+var studentTasks = studentIds.Select(id => FetchStudentAsync(id));
+var courseTasks = courseCodes.Select(code => FetchCourseAsync(code));
+
+Student[] students = await Task.WhenAll(studentTasks);
+Course[] courses = await Task.WhenAll(courseTasks);
+
+Console.WriteLine(
+    $"\nLoaded {students.Length} students and {courses.Length} courses in {sw.ElapsedMilliseconds}ms");
+
+foreach (var student in students)
+{
+    Console.WriteLine($"{student.Name} GPA: {student.GPA}");
+}
